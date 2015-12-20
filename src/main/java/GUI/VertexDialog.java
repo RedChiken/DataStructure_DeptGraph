@@ -5,16 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by user on 2015-12-20.
- */
 public class VertexDialog extends JDialog implements ActionListener {
     private TextField vertex;
     private JButton add;
     private JPanel panel;
     private JPanel bPanel;
 
-    public VertexDialog(){
+    public VertexDialog() {
         vertex = new TextField();
         add = new JButton();
         panel = new JPanel();

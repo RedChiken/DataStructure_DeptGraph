@@ -4,19 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 import java.util.Vector;
 
-/**
- * Created by user on 2015-12-20.
- */
-public class EdgeDialog extends JDialog implements ActionListener{
+public class EdgeDialog extends JDialog implements ActionListener {
     private JPanel panel;
     private JButton add;
     private JComboBox sender, receiver;
     private TextArea money;
 
-    public EdgeDialog(Vector<String> List){
+    public EdgeDialog(Vector<String> List) {
         JLabel send, receive, pay;
         send = new JLabel("송신자 : ");
         receive = new JLabel("수신자 : ");
