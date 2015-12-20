@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 /**
  * Created by user on 2015-12-20.
@@ -12,7 +13,9 @@ public class MainFrame extends JFrame implements ActionListener{
     private JPanel mainPanel, resultPanel, buttonPanel;
     private JButton addVertex, addEdge, show;
     private TextArea result;
-    
+    private VertexDialog vertex;
+    private EdgeDialog edge;
+
     public MainFrame(){
         super("채무 관계 그래프");         //  dept relations graph
 
@@ -47,13 +50,14 @@ public class MainFrame extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(addVertex)){            //  if addVertex is pressed
-
+            vertex = new VertexDialog();
         }
         else if(e.getSource().equals(addEdge)){         //  if addEdge is pressed
-
+            Vector<String> temp = new Vector<String>();     //temporary code. need to get vertex list(Vector)and add it to here.
+            edge = new EdgeDialog(temp);
         }
         else{                                            //   if result is pressed
-
+            //calculate and show result on result(TextArea)
         }
     }
 }
