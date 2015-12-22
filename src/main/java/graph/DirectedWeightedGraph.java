@@ -1,9 +1,10 @@
 package graph;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
-class DirectedWeightedGraph<VertexT> {
+public class DirectedWeightedGraph<VertexT> implements Cloneable {
     private int vertices;
     private int edges;
 
@@ -15,11 +16,11 @@ class DirectedWeightedGraph<VertexT> {
         this.graph = new HashMap<>();
     }
 
-    public DirectedWeightedGraph(Vertices<VertexT> vertices, WeightedEdge<VertexT>[] edges) {
+    public DirectedWeightedGraph(Vertices<VertexT> vertices, Collection<WeightedEdge<VertexT>> edges) {
         this.vertices = vertices.size();
-        this.edges = edges.length;
+        this.edges = edges.size();
         vertices.forEach((vertex) -> graph.putIfAbsent(vertex, new HashMap<>()));
-        Arrays.stream(edges)
+        edges.stream()
                 .forEach(this::addEdge);
     }
 
@@ -71,5 +72,25 @@ class DirectedWeightedGraph<VertexT> {
             edges.computeIfPresent(destination, (dest, integer) -> weight);
             return edges;
         });
+    }
+
+    public Vertices<VertexT> getVertices() {
+        return new Vertices<>(this.graph.keySet());
+    }
+
+    public ArrayList<WeightedEdge<VertexT>> getEdges() {
+        ArrayList<WeightedEdge<VertexT>> edges = new ArrayList<>();
+        this.graph.forEach((src, edgeMap) -> edgeMap.forEach((dest, integer) -> edges.add(new WeightedEdge<>(src, dest, integer))));
+        return edges;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        super.clone();
+        DirectedWeightedGraph<VertexT> newGraph = new DirectedWeightedGraph<>();
+        newGraph.graph = (HashMap<VertexT, HashMap<VertexT, Integer>>) this.graph.clone();
+        newGraph.vertices = this.vertices;
+        newGraph.edges = this.edges;
+        return newGraph;
     }
 }

@@ -12,6 +12,10 @@ public class WeightedEdge<VertexT> extends Edge<VertexT> {
         return weight;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
         return "WeightedEdge{" +
