@@ -3,6 +3,7 @@ package graph;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class DirectedWeightedGraph<VertexT> implements Cloneable {
     private int vertices;
@@ -20,8 +21,19 @@ public class DirectedWeightedGraph<VertexT> implements Cloneable {
         this.vertices = vertices.size();
         this.edges = edges.size();
         vertices.forEach((vertex) -> graph.putIfAbsent(vertex, new HashMap<>()));
-        edges.stream()
-                .forEach(this::addEdge);
+        edges.forEach(this::addEdge);
+    }
+
+    public DirectedWeightedGraph(Collection<WeightedEdge<VertexT>> edges) {
+        HashSet<String> vertices = new HashSet<>();
+        this.edges = edges.size();
+        edges.forEach(edge -> {
+            vertices.add(edge.getSource());
+            vertices.add(edge.getDestination());
+            this.addEdge(edge);
+        });
+        this.vertices = vertices.size();
+
     }
 
     public void addVertex(VertexT vertex) {
