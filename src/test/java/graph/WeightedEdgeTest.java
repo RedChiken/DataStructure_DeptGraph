@@ -13,14 +13,14 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class EdgeTest {
-    private final WeightedEdge<String, Integer> deptRelation;
+public class WeightedEdgeTest {
+    private final WeightedEdge<String> deptRelation;
     private final String expectedSource;
     private final String expectedDest;
     private final String expectedToString;
     private final int expectedWeight;
 
-    public EdgeTest(String expectedSource, String expectedDest, int expectedWeight, String expectedToString) {
+    public WeightedEdgeTest(String expectedSource, String expectedDest, int expectedWeight, String expectedToString) {
         deptRelation = new WeightedEdge<>(expectedSource, expectedDest, expectedWeight);
         this.expectedSource = expectedSource;
         this.expectedDest = expectedDest;
