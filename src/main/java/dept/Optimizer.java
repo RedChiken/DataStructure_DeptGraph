@@ -37,6 +37,10 @@ public class Optimizer {
         this.graph = new DirectedWeightedGraph<>(graph.getVertices(), edges);
     }
 
+    public void fragmentize(){
+
+    }
+
     public DirectedWeightedGraph<String> get() {
         return graph;
     }

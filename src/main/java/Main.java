@@ -1,6 +1,7 @@
 import graph.DirectedWeightedGraph;
 import graph.WeightedEdge;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,8 +15,16 @@ public class Main {
             System.out.println("2. add Edge");
             System.out.println("3. Calculate");
             System.out.print("What do you want to do? : ");
-            menuSelect = input.nextInt();
-            input.nextLine();
+
+            try{
+                menuSelect = input.nextInt();
+                input.nextLine();
+            }
+            catch(InputMismatchException e){
+                System.out.println("You need to write number\n\n\n");
+                continue;
+            }
+
             if (menuSelect == 1) {            //add Vertex
                 System.out.print("Please Write new Vertex name : ");
                 String vertex = input.nextLine();
@@ -28,12 +37,19 @@ public class Main {
                 from = input.nextLine();
                 System.out.print("Write name who needs to get money : ");
                 to = input.nextLine();
-                System.out.print("Write amount that needs to be paid : ");
-                pay = input.nextInt();
+                try {
+                    System.out.print("Write amount that needs to be paid : ");
+                    pay = input.nextInt();
+                }
+                catch(InputMismatchException e){
+                    System.out.println("You need to write a number.\n\n\n");
+                    continue;
+                }
                 WeightedEdge<String> edge = new WeightedEdge<>(from, to, pay);
                 graph.addEdge(edge);
                 System.out.println("\n\n\n");
             } else if (menuSelect == 3) {      //Calculate
+                dept.Optimizer opt = new dept.Optimizer(graph);
 
                 loop = false;
             } else {                          //Error
