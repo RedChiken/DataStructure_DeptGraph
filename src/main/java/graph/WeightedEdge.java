@@ -1,14 +1,14 @@
 package graph;
 
-public class WeightedEdge<VertexT, WeightT> extends Edge<VertexT>{
-    private WeightT weight;
+public class WeightedEdge<VertexT> extends Edge<VertexT> {
+    private int weight;
 
-    public WeightedEdge(VertexT source, VertexT destination, WeightT weight) {
+    public WeightedEdge(VertexT source, VertexT destination, int weight) {
         super(source, destination);
         this.weight = weight;
     }
 
-    public WeightT getWeight() {
+    public int getWeight() {
         return weight;
     }
 
