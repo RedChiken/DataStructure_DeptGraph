@@ -31,7 +31,7 @@ public class WeightedEdgeTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"서류", "과제", 10000, "Edge{source=서류, destination=과제, weight=10000}"}
+                {"서류", "과제", 10000, "WeightedEdge{source=서류, destination=과제, weight=10000}"}
                 // TODO 여기다가 테스트 좀 더 추가해줘요. 기찮ㄷ...
         });
     }

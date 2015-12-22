@@ -1,7 +1,7 @@
 package graph;
 
 public class WeightedEdge<VertexT> extends Edge<VertexT> {
-    private int weight;
+    int weight;
 
     public WeightedEdge(VertexT source, VertexT destination, int weight) {
         super(source, destination);

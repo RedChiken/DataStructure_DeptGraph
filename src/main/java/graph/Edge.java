@@ -1,7 +1,7 @@
 package graph;
 
 public class Edge<VertexT> {
-    protected VertexT source, destination;
+    VertexT source, destination;
 
     public Edge(VertexT source, VertexT destination) {
         this.source = source;
