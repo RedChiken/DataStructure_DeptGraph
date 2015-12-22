@@ -23,19 +23,6 @@ class DirectedWeightedGraph<VertexT> {
                 .forEach(this::addEdge);
     }
 
-    public void addEdge(WeightedEdge<VertexT> edge) {
-        graph.computeIfPresent(edge.source,
-                (src, edgeHashMap) -> {
-                    if (edgeHashMap.containsKey(edge.destination)) {
-                        edgeHashMap.put(edge.destination, edge.weight + edgeHashMap.get(edge.destination));
-                    } else {
-                        edgeHashMap.put(edge.destination, edge.weight);
-                        ++edges;
-                    }
-                    return edgeHashMap;
-                });
-    }
-
     public void addVertex(VertexT vertex) {
         graph.putIfAbsent(vertex, new HashMap<>());
     }
@@ -57,5 +44,32 @@ class DirectedWeightedGraph<VertexT> {
             graph.remove(target);
             graph.put(replace, edges);
         }
+    }
+
+    public void addEdge(WeightedEdge<VertexT> edge) {
+        graph.computeIfPresent(edge.source,
+                (src, edgeHashMap) -> {
+                    if (edgeHashMap.containsKey(edge.destination)) {
+                        edgeHashMap.put(edge.destination, edge.weight + edgeHashMap.get(edge.destination));
+                    } else {
+                        edgeHashMap.put(edge.destination, edge.weight);
+                        ++edges;
+                    }
+                    return edgeHashMap;
+                });
+    }
+
+    public void removeEdge(VertexT source, VertexT destination) {
+        graph.computeIfPresent(source, (vertex, edges) -> {
+            edges.remove(destination);
+            return edges;
+        });
+    }
+
+    public void updateEdge(VertexT source, VertexT destination, int weight) {
+        graph.computeIfPresent(source, (src, edges) -> {
+            edges.computeIfPresent(destination, (dest, integer) -> weight);
+            return edges;
+        });
     }
 }
