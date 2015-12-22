@@ -1,3 +1,5 @@
+package graph;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,25 +13,25 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class DeptRelationTest {
-    private final DeptRelation deptRelation;
-    private final String expectedFrom;
-    private final String expectedTo;
+public class EdgeTest {
+    private final WeightedEdge<String, Integer> deptRelation;
+    private final String expectedSource;
+    private final String expectedDest;
     private final String expectedToString;
-    private final int expectedAmount;
+    private final int expectedWeight;
 
-    public DeptRelationTest(String expectedFrom, String expectedTo, int expectedAmount, String expectedToString) {
-        deptRelation = new DeptRelation(expectedFrom, expectedTo, expectedAmount);
-        this.expectedFrom = expectedFrom;
-        this.expectedTo = expectedTo;
-        this.expectedAmount = expectedAmount;
+    public EdgeTest(String expectedSource, String expectedDest, int expectedWeight, String expectedToString) {
+        deptRelation = new WeightedEdge<>(expectedSource, expectedDest, expectedWeight);
+        this.expectedSource = expectedSource;
+        this.expectedDest = expectedDest;
+        this.expectedWeight = expectedWeight;
         this.expectedToString = expectedToString;
     }
 
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"서류", "과제", 10000, "DeptRelation{from='서류', to='과제', amount=" + 10000 + '}'}
+                {"서류", "과제", 10000, "Edge{source=서류, destination=과제, weight=10000}"}
                 // TODO 여기다가 테스트 좀 더 추가해줘요. 기찮ㄷ...
         });
     }
@@ -46,17 +48,17 @@ public class DeptRelationTest {
 
     @Test
     public void getFormTest() {
-        assertEquals(expectedFrom, deptRelation.getFrom());
+        assertEquals(expectedSource, deptRelation.getSource());
     }
 
     @Test
     public void getToTest() {
-        assertEquals(expectedTo, deptRelation.getTo());
+        assertEquals(expectedDest, deptRelation.getDestination());
     }
 
     @Test
     public void getAmountTest() {
-        assertEquals(expectedAmount, deptRelation.getAmount());
+        assertEquals(expectedWeight, (long)deptRelation.getWeight());
     }
 
     @Test

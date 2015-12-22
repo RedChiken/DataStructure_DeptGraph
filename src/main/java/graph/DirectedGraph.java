@@ -1,9 +1,9 @@
 import java.util.HashMap;
 
-class DeptGraph {
+class DirectedGraph {
     private final HashMap<String, HashMap<String, Integer>> dept;
 
-    DeptGraph() {
+    DirectedGraph() {
         dept = new HashMap<>();
     }
 
@@ -24,6 +24,15 @@ class DeptGraph {
 
     @Override
     public String toString() {
-        
+        StringBuffer buffer = new StringBuffer();
+
+        dept.forEach((s, stringIntegerHashMap) -> {
+            buffer.append("From : " + s + '\n');
+            stringIntegerHashMap.forEach((s1, integer) -> {
+                buffer.append('\t' + s1 + " : " + integer + '\n'));
+            });
+        });
+
+        return buffer.toString();
     }
 }
