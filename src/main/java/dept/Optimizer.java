@@ -98,10 +98,10 @@ public class Optimizer {
 
         @Override
         public int compare(K k1, K k2) {
-            if (base.get(k2).compareTo(k1) == 0) {
+            if (base.get(k2).compareTo(base.get(k1)) == 0) {
                 return k2.compareTo(k1);
             } else {
-                return base.get(k2).compareTo(k1);
+                return base.get(k2).compareTo(base.get(k1));
             }
         }
     }
