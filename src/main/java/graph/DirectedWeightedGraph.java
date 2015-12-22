@@ -25,7 +25,7 @@ public class DirectedWeightedGraph<VertexT> implements Cloneable {
     }
 
     public DirectedWeightedGraph(Collection<WeightedEdge<VertexT>> edges) {
-        HashSet<String> vertices = new HashSet<>();
+        HashSet<VertexT> vertices = new HashSet<>();
         this.edges = edges.size();
         edges.forEach(edge -> {
             vertices.add(edge.getSource());

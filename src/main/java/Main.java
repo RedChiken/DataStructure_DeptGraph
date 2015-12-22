@@ -22,8 +22,10 @@ public class Main {
             }
             catch(InputMismatchException e){
                 System.out.println("You need to write number\n\n\n");
+                input.nextLine();
                 continue;
             }
+
 
             if (menuSelect == 1) {            //add Vertex
                 System.out.print("Please Write new Vertex name : ");
@@ -50,7 +52,9 @@ public class Main {
                 System.out.println("\n\n\n");
             } else if (menuSelect == 3) {      //Calculate
                 dept.Optimizer opt = new dept.Optimizer(graph);
-
+                opt.simplify();
+                opt.fragmentize();
+                opt.regenerate();
                 loop = false;
             } else {                          //Error
                 System.out.println("\nMenu number is not found.\n\n\n\n");

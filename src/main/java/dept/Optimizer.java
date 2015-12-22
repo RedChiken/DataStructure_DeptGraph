@@ -69,7 +69,7 @@ public class Optimizer {
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
                 sortedIncomeVertices.remove(incomeEntry.getKey());
                 sortedOutcomeVertices.remove(outcomeEntry.getKey());
-            } else (incomeEntry.getValue() > outcomeEntry.getValue()) {
+            } else if (incomeEntry.getValue() > outcomeEntry.getValue()) {
                 int delta = incomeEntry.getValue() - outcomeEntry.getValue();
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
                 sortedIncomeVertices.put(incomeEntry.getKey(), delta);
