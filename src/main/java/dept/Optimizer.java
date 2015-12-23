@@ -44,13 +44,32 @@ public class Optimizer {
 
     public void fragmentize() {
         ArrayList<WeightedEdge<String>> edges = this.graph.getEdges();
-
+        HashMap<String, Integer> optimizedOutcome, optimizedIncome;
         edges.forEach(edge -> {
             outcomeVertex.computeIfPresent(edge.getSource(), (s, integer) -> edge.getWeight() + integer);
             outcomeVertex.putIfAbsent(edge.getSource(), edge.getWeight());
             incomeVertex.computeIfPresent(edge.getDestination(), (s, integer) -> edge.getWeight() + integer);
             incomeVertex.putIfAbsent(edge.getDestination(), edge.getWeight());
         });
+
+        optimizedIncome = new HashMap<>();
+        optimizedOutcome = new HashMap<>();
+
+        outcomeVertex.forEach((s, integer) -> {
+            int delta = integer - incomeVertex.get(s);
+            if (delta > 0) {
+                optimizedOutcome.put(s, delta);
+            }
+        });
+        incomeVertex.forEach((s, integer) -> {
+            int delta = integer - outcomeVertex.get(s);
+            if (delta > 0) {
+                optimizedIncome.put(s, delta);
+            }
+        });
+
+        this.outcomeVertex = optimizedOutcome;
+        this.incomeVertex = optimizedIncome;
     }
 
     public void regenerate() {
@@ -61,7 +80,7 @@ public class Optimizer {
         sortedIncomeVertices.putAll(incomeVertex);
         sortedOutcomeVertices.putAll(outcomeVertex);
 
-        while (!sortedIncomeVertices.isEmpty() && !sortedOutcomeVertices.isEmpty()) {
+        while (!(sortedIncomeVertices.isEmpty() && sortedOutcomeVertices.isEmpty())) {
             Map.Entry<String, Integer> incomeEntry = sortedIncomeVertices.firstEntry();
             Map.Entry<String, Integer> outcomeEntry = sortedOutcomeVertices.firstEntry();
 
@@ -69,15 +88,17 @@ public class Optimizer {
                 int delta = incomeEntry.getValue() - outcomeEntry.getValue();
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
                 sortedIncomeVertices.put(incomeEntry.getKey(), delta);
+                sortedOutcomeVertices.remove(outcomeEntry.getKey());
             } else if(incomeEntry.getValue() < outcomeEntry.getValue()) {
                 int delta = outcomeEntry.getValue() - incomeEntry.getValue();
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), incomeEntry.getValue()));
                 sortedOutcomeVertices.put(outcomeEntry.getKey(), delta);
+                sortedIncomeVertices.remove(incomeEntry.getKey());
             } else {
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
+                sortedIncomeVertices.remove(incomeEntry.getKey());
+                sortedOutcomeVertices.remove(outcomeEntry.getKey());
             }
-            sortedIncomeVertices.remove(incomeEntry.getKey());
-            sortedOutcomeVertices.remove(outcomeEntry.getKey());
         }
 
         this.graph = new DirectedWeightedGraph<>(edges);
