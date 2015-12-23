@@ -65,21 +65,19 @@ public class Optimizer {
             Map.Entry<String, Integer> incomeEntry = sortedIncomeVertices.firstEntry();
             Map.Entry<String, Integer> outcomeEntry = sortedOutcomeVertices.firstEntry();
 
-            if (incomeEntry.getValue() == outcomeEntry.getValue()) {
-                edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
-                sortedIncomeVertices.remove(incomeEntry.getKey());
-                sortedOutcomeVertices.remove(outcomeEntry.getKey());
-            } else if (incomeEntry.getValue() > outcomeEntry.getValue()) {
+            if (incomeEntry.getValue() > outcomeEntry.getValue()) {
                 int delta = incomeEntry.getValue() - outcomeEntry.getValue();
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
                 sortedIncomeVertices.put(incomeEntry.getKey(), delta);
-                sortedOutcomeVertices.remove(outcomeEntry.getKey());
-            } else {
+            } else if(incomeEntry.getValue() < outcomeEntry.getValue()) {
                 int delta = outcomeEntry.getValue() - incomeEntry.getValue();
                 edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), incomeEntry.getValue()));
                 sortedOutcomeVertices.put(outcomeEntry.getKey(), delta);
-                sortedIncomeVertices.remove(incomeEntry.getKey());
+            } else {
+                edges.add(new WeightedEdge<>(outcomeEntry.getKey(), incomeEntry.getKey(), outcomeEntry.getValue()));
             }
+            sortedIncomeVertices.remove(incomeEntry.getKey());
+            sortedOutcomeVertices.remove(outcomeEntry.getKey());
         }
 
         this.graph = new DirectedWeightedGraph<>(edges);
