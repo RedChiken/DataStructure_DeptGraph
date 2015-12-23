@@ -28,13 +28,12 @@ public class DirectedWeightedGraph<VertexT> implements Cloneable {
     public DirectedWeightedGraph(Collection<WeightedEdge<VertexT>> edges) {
         HashSet<VertexT> vertices = new HashSet<>();
         this.edges = edges.size();
+        this.graph = new HashMap<>();   //추가한 곳.
         edges.forEach(edge -> {
             vertices.add(edge.getSource());
             vertices.add(edge.getDestination());
         });
         this.vertices = vertices.size();
-
-        this.graph = new HashMap<>();
         vertices.forEach(vertex -> graph.putIfAbsent(vertex, new HashMap<>()));
         edges.forEach(this::addEdge);
     }
