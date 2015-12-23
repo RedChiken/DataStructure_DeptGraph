@@ -55,6 +55,11 @@ public class Main {
                 opt.simplify();
                 opt.fragmentize();
                 opt.regenerate();
+                graph = opt.get();
+                graph.getEdges();
+                for(WeightedEdge<String> vertex : graph.getEdges()){
+                    System.out.println(vertex.getSource() + "가 "  + vertex.getDestination() + "에게 " + vertex.getWeight() + "원을 지급");
+                }
                 loop = false;
             } else {                          //Error
                 System.out.println("\nMenu number is not found.\n\n\n\n");
